@@ -1,0 +1,6 @@
+@echo off
+cd /d "%~dp0"
+echo Aplicando migrações no banco configurado...
+call npm.cmd run setup:google-sheets --workspace backend
+echo Abrindo backend e frontend...
+call npm.cmd run dev
