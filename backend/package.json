@@ -8,9 +8,7 @@
   },
   "scripts": {
     "dev": "node --watch src/server.js",
-    "dev:cloudflare": "npx wrangler dev src/worker.js",
     "start": "node src/server.js",
-    "deploy:cloudflare": "npx wrangler deploy",
     "lint": "eslint src"
   },
   "dependencies": {

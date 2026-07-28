@@ -7,8 +7,6 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "deploy:frontend": "npm run build && npx.cmd wrangler pages deploy dist --project-name comsoc",
-    "deploy:pages": "npm run build && npx.cmd wrangler pages deploy dist --project-name comsoc",
     "lint": "eslint .",
     "test": "vitest run"
   },
