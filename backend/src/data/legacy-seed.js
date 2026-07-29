@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const MIGRATION_DIR = path.resolve(__dirname, '../../../banco de dados migração');
+const MIGRATION_DIR = path.resolve(__dirname, '../../../banco de dados migra\u00e7\u00e3o');
 
 function parseCsv(text) {
   const rows = [];
