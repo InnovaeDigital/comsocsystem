@@ -57,7 +57,7 @@ function Metric({ label, value, tone = 'cyan', hint }) {
 }
 
 function LoginScreen({ controller }) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Cb Tomé');
   const featurePills = [
     { icon: Palette, label: 'Comunicação Visual' },
     { icon: Sparkles, label: 'Design Gráfico' },
@@ -94,9 +94,7 @@ function LoginScreen({ controller }) {
               </div>
               <div className="text-left">
                 <h2 className="text-lg font-black text-white sm:text-xl">Identificação de Acesso</h2>
-                <p className="mt-1 text-sm text-slate-400">
-                  Insira as credenciais para se conectar de forma integrada.
-                </p>
+                <p className="mt-1 text-sm text-slate-400">Insira as credenciais para se conectar de forma integrada.</p>
               </div>
             </div>
 
@@ -120,8 +118,9 @@ function LoginScreen({ controller }) {
                 <input
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  placeholder="Sgt Borba Cruz"
-                  className="w-full rounded-[18px] border border-white/10 bg-white/6 px-4 py-3.5 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-cyan-400/50 focus:bg-white/[0.09]"
+                  placeholder="Cb Tomé"
+                  autoFocus
+                  className="w-full rounded-[18px] border border-white/10 bg-white/10 px-4 py-3.5 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-cyan-400/50 focus:bg-white/[0.09]"
                 />
               </label>
 
@@ -159,17 +158,8 @@ function LoginScreen({ controller }) {
 }
 
 function Dashboard({ controller }) {
-  const {
-    profile,
-    users,
-    notes,
-    categories,
-    remainingOrders,
-    activities,
-    presenceList,
-    setProfile,
-    notify,
-  } = controller;
+  const { profile, users, notes, categories, remainingOrders, activities, presenceList, setProfile, notify } =
+    controller;
 
   const stats = useMemo(() => {
     const activeNotes = notes.filter((note) => Number(note.progresso) < 100);
@@ -294,7 +284,7 @@ function Dashboard({ controller }) {
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
-          <SectionCard title="Trabalhos recentes" eyebrow="Linha de produção" icon={GalleryHorizontalEnd}>
+          <SectionCard title="Trabalhos recentes" eyebrow="Linha de produção" icon={LayoutDashboard}>
             <div className="space-y-3">
               {recentNotes.length === 0 ? (
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-400">
