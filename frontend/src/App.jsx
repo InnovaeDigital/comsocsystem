@@ -4,13 +4,13 @@ export default function App() {
   const [name, setName] = useState('');
 
   return (
-    <main className="min-h-screen relative z-10 flex items-center justify-center px-4 py-8">
+    <main className="min-h-screen flex items-center justify-center px-4 py-10">
       <section className="surface-card w-full max-w-2xl rounded-[28px] p-6 sm:p-8">
         <p className="text-[10px] font-black uppercase tracking-[0.28em] text-cyan-200">Sistema em recuperação</p>
-        <h1 className="mt-3 text-3xl font-black text-white">Base visual operacional carregada.</h1>
+        <h1 className="mt-3 text-3xl font-black text-white">Frontend carregado com sucesso.</h1>
         <p className="mt-3 max-w-xl text-sm text-slate-300">
-          Esta versão mínima existe para confirmar que o frontend está montando corretamente no navegador.
-          Se esta tela aparecer, o problema está em um módulo maior da aplicação e não no Vite ou no deploy.
+          Se você está vendo esta tela, o problema não é mais o React básico nem o Vite.
+          Estamos agora com uma base mínima estável para reintroduzir as funções do sistema em segurança.
         </p>
 
         <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
