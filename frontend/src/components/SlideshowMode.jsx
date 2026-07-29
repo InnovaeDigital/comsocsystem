@@ -40,7 +40,7 @@ export function SlideshowMode({ controller }) {
   return (
     <>
       {/* ------------------------------------------------------------- */}
-      {/* MODO EXPOSIÇÃO COI - FULLSCREEN TELÃO MULTIMÍDIA */}
+      {/* MODO EXPOSIÇÃO - TELA COM SOC */}
       {/* ------------------------------------------------------------- */}
       {isSlideModeActive && (
         <div className="fixed inset-0 bg-[#03060a] z-[300] flex flex-col justify-between p-6 md:p-10 text-white animate-fade-in font-mono overflow-hidden">

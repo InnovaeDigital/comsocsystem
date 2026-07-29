@@ -57,7 +57,7 @@ function Metric({ label, value, tone = 'cyan', hint }) {
 }
 
 function LoginScreen({ controller }) {
-  const [name, setName] = useState('Cb Tomé');
+  const [name, setName] = useState('');
   const featurePills = [
     { icon: Palette, label: 'Comunicação Visual' },
     { icon: Sparkles, label: 'Design Gráfico' },
@@ -118,7 +118,7 @@ function LoginScreen({ controller }) {
                 <input
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  placeholder="Cb Tomé"
+                  placeholder="Digite seu nome funcional"
                   autoFocus
                   className="w-full rounded-[18px] border border-white/10 bg-white/10 px-4 py-3.5 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-cyan-400/50 focus:bg-white/[0.09]"
                 />
@@ -205,7 +205,7 @@ function Dashboard({ controller }) {
                 <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-200">
                   <LayoutDashboard size={12} /> Painel operacional
                 </div>
-                <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl">{profile?.name}</h1>
+                <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl">{profile?.name || 'Cb Tomé'}</h1>
                 <p className="max-w-3xl text-sm leading-relaxed text-slate-300">
                   O sistema foi refeito para ganhar uma aparência mais institucional, sofisticada e estável.
                   Agora o fluxo principal abre primeiro, e o restante entra por camadas.
