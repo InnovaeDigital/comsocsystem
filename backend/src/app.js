@@ -773,7 +773,7 @@ export function createApp({ runtimeMiddleware } = {}) {
       );
 
       if (result.rowCount === 0) {
-        throw httpError('Categoria nÃ£o encontrada.', 404);
+        throw httpError('Categoria não encontrada.', 404);
       }
 
       res.json({ category: mapCategory(result.rows[0]) });

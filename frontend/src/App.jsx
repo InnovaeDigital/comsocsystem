@@ -17,6 +17,12 @@ import {
   Video,
   Users,
 } from 'lucide-react';
+import { AppFooter } from './components/AppFooter';
+import { AppHeader } from './components/AppHeader';
+import { AuthenticatedWorkspace } from './components/AuthenticatedWorkspace';
+import { CreateCategoryModal } from './components/modals/CreateCategoryModal';
+import { CreateWorkModal } from './components/modals/CreateWorkModal';
+import { Toast } from './components/Toast';
 import { useComsocController } from './hooks/useComsocController';
 
 function SectionCard({ title, eyebrow, icon: Icon, children, className = '' }) {
@@ -179,8 +185,10 @@ function Dashboard({ controller }) {
   const activeUsers = useMemo(() => [...users].slice(0, 6), [users]);
 
   return (
-    <main className="relative z-10 flex-1 px-4 py-4 sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6">
+    <>
+      <AppHeader controller={controller} />
+      <main className="relative z-10 flex-1 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6">
         <header className="surface-card rounded-[32px] p-4 sm:p-6">
           <div className="flex flex-col gap-5">
             <div className="flex flex-wrap items-center gap-2">
@@ -205,7 +213,7 @@ function Dashboard({ controller }) {
                 <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-200">
                   <LayoutDashboard size={12} /> Painel operacional
                 </div>
-                <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl">{profile?.name || 'Cb Tomé'}</h1>
+                <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl">{profile?.name || 'Administrador principal'}</h1>
                 <p className="max-w-3xl text-sm leading-relaxed text-slate-300">
                   O sistema foi refeito para ganhar uma aparência mais institucional, sofisticada e estável.
                   Agora o fluxo principal abre primeiro, e o restante entra por camadas.
@@ -380,8 +388,29 @@ function Dashboard({ controller }) {
             </div>
           </SectionCard>
         </section>
-      </div>
-    </main>
+
+        <section className="grid gap-6">
+          <SectionCard title="Sistema completo" eyebrow="Reativação integral" icon={LayoutDashboard}>
+            <div className="space-y-4">
+              <p className="max-w-4xl text-sm leading-relaxed text-slate-300">
+                O painel abaixo reativa as funções antigas do sistema dentro do novo layout premium. Aqui ficam as
+                rotinas operacionais, administração de usuários, categorias, mural, presença e demais blocos que
+                precisavam voltar a operar.
+              </p>
+              <div className="overflow-hidden rounded-[24px] border border-white/10 bg-slate-950/50">
+                <AuthenticatedWorkspace controller={controller} />
+              </div>
+            </div>
+          </SectionCard>
+        </section>
+
+        </div>
+        <AppFooter />
+      </main>
+      <CreateWorkModal controller={controller} />
+      <CreateCategoryModal controller={controller} />
+      <Toast controller={controller} />
+    </>
   );
 }
 

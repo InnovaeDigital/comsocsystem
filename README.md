@@ -55,7 +55,16 @@ npm run dev
    - `JSONBIN_BIN_ID`
    - `JSONBIN_API_KEY` ou `JSONBIN_ACCESS_KEY`
    - `JSONBIN_CACHE_TTL_MS` opcional
+   - `CORS_ORIGIN` com a URL final do seu domínio, se quiser restringir a API
 4. Faça o deploy
+
+## Fluxo recomendado
+
+1. Suba o código para um repositório no GitHub
+2. Conecte esse repositório ao Vercel
+3. Defina as variáveis acima no painel do Vercel
+4. Faça um deploy de produção
+5. Abra o site em aba anônima e valide login, leitura da base migrada e criação de novos registros
 
 ## Qualidade
 
