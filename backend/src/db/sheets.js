@@ -201,9 +201,42 @@ function parseCount(value) {
   return Number(value || 0) || 0;
 }
 
+function isEmptyState(state) {
+  const safe = ensureState(state);
+  return (
+    safe.users.length === 0 &&
+    safe.categories.length === 0 &&
+    safe.notes.length === 0 &&
+    safe.chatMessages.length === 0 &&
+    safe.activities.length === 0 &&
+    safe.presence.length === 0 &&
+    Number(safe.remainingOrders || 0) === 0
+  );
+}
+
+async function seedRemoteStateIfNeeded(state) {
+  const { binId } = getConfig();
+  if (!hasValidRemoteConfig() || !binId) return;
+  if (!isEmptyState(state)) return;
+
+  const legacyState = ensureState(normalizeSeedState(LEGACY_SEED));
+  try {
+    await jsonbinFetch(`/b/${binId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(legacyState),
+    });
+    cachedState = legacyState;
+    cacheLoadedAt = Date.now();
+  } catch {
+    // Fallback silencioso: a leitura local continua funcionando.
+  }
+}
+
 export async function query(sql, params = []) {
   const statement = normalized(sql);
   const state = await loadState();
+  await seedRemoteStateIfNeeded(state);
 
   if (statement.startsWith('select notes.*')) {
     return result([...state.notes].sort((a, b) => b.created_at.localeCompare(a.created_at)).map((note) => noteWithAssignee(state, note)));
