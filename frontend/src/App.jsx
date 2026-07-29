@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { } from 'react';
 import { AppHeader } from './components/AppHeader';
 import { AppFooter } from './components/AppFooter';
 import { AuthenticatedWorkspace } from './components/AuthenticatedWorkspace';
@@ -8,8 +8,6 @@ import { CreateCategoryModal } from './components/modals/CreateCategoryModal';
 import { CreateWorkModal } from './components/modals/CreateWorkModal';
 import { useComsocController } from './hooks/useComsocController';
 
-const SlideshowMode = lazy(() => import('./components/SlideshowMode').then((module) => ({ default: module.SlideshowMode })));
-
 export default function App() {
   const controller = useComsocController();
 
@@ -18,9 +16,6 @@ export default function App() {
       <div className="site-aurora" aria-hidden="true" />
       <div className="site-grid" aria-hidden="true" />
       <div className="site-vignette" aria-hidden="true" />
-      <Suspense fallback={null}>
-        <SlideshowMode controller={controller} />
-      </Suspense>
       {controller.profile ? (
         <>
           <AppHeader controller={controller} />
