@@ -1,0 +1,8 @@
+schema_name,table_name,type,owner,estimated_row_count,locality
+public,activities,table,systemcomsoc,95,null
+public,categories,table,systemcomsoc,7,null
+public,chat_messages,table,systemcomsoc,0,null
+public,notes,table,systemcomsoc,41,null
+public,presence,table,systemcomsoc,7,null
+public,schema_migrations,table,systemcomsoc,4,null
+public,users,table,systemcomsoc,8,null
