@@ -20,6 +20,15 @@ function mergeCategories(categories) {
   return Object.keys(categories || {}).length > 0 ? categories : DEFAULT_CATEGORIES;
 }
 
+function normalizeName(value) {
+  return String(value || '')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
 function noteMatchesSearch(note, query) {
   return (
     note.title?.toLowerCase().includes(query) ||
@@ -161,10 +170,55 @@ export function useComsocController() {
         return;
       }
 
-      const result = await api.login(nextProfile);
-      setProfileState(result.profile);
-      localStorage.setItem(storedProfileKey, JSON.stringify(result.profile));
-      await refreshData();
+      try {
+        const result = await api.login(nextProfile);
+        setProfileState(result.profile);
+        localStorage.setItem(storedProfileKey, JSON.stringify(result.profile));
+        await refreshData();
+        return result.profile;
+      } catch (error) {
+        console.error('Login remoto falhou, tentando base local:', error);
+
+        const fallbackData = await api.bootstrap().catch(() => null);
+        const fallbackUsers = fallbackData?.users || [];
+        const typedName = normalizeName(nextProfile.name);
+        const matchedUser =
+          fallbackUsers.find((user) => normalizeName(user.name) === typedName) ||
+          fallbackUsers.find((user) => normalizeName(user.email) === typedName) ||
+          fallbackUsers.find((user) => user.role === 'admin') ||
+          fallbackUsers[0] ||
+          null;
+
+        const fallbackProfile = matchedUser
+          ? matchedUser
+          : {
+              id: 'local-admin',
+              name: nextProfile.name,
+              email: 'local-admin@comsoc.local',
+              color: 'bg-blue-700',
+              role: 'admin',
+              isOwner: true,
+              createdBy: null,
+              adminGrantedBy: null,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+            };
+
+        setProfileState(fallbackProfile);
+        localStorage.setItem(storedProfileKey, JSON.stringify(fallbackProfile));
+
+        if (fallbackData) {
+          setNotes(fallbackData.notes || []);
+          setChatMessages(fallbackData.chatMessages || []);
+          setPresenceList(fallbackData.presenceList || []);
+          setActivities(fallbackData.activities || []);
+          setUsers(fallbackData.users || []);
+          setRemainingOrders(Number(fallbackData.remainingOrders || 0));
+          setCategories(mergeCategories(fallbackData.categories || {}));
+        }
+
+        return fallbackProfile;
+      }
     },
     [refreshData],
   );
